@@ -1,25 +1,61 @@
+// history and data object
+var myData = {
+    history: []
+};
+
+var seconds = 1;
+
 window.addEventListener('load', function(){
-
-//js stucture:
-    
-    // history and data object
-
     // takinng original value and creating output div of total sum
-
-    // checking for exceptions and setting rules for them
-
-    // unified summing function for all buttons
-        //add number to history array
-        //add number to visible history
-            //checking for lenght and hiding older values if necessary
-            //if lenght big create link to toggle history
-        //add number to final sum
-        //add server based delay counter
-
-    // creating output div for wait message
-        //set rules for wait message
+    var element = document.createElement('div');
+    document.querySelector('.calc').appendChild(element);
     
+    var startValue = parseInt(document.querySelector('#visible').innerHTML);
+    // checking for exceptions and setting rules for them
+    if (!startValue)
+    {
+        startValue = 0;
+        document.querySelector('.calc').style.display = 'none';
+    }
+    element.textContent = startValue;
+    document.querySelector('#visible').innerHTML = startValue;
+    // unified summing function for all buttons
+    document.querySelector('.add_amount').onclick = function() {
+        var value = this.dataset.amount;
+        //add server based delay counter - seconds
+        //console.log('start', seconds);
+        delay(seconds++);
+        //console.log('delay', seconds);
+        addAmount(value);
+    }
+    // creating output div for wait message
+        //set rules for wait message 
 });
+        
+function addAmount(amount) {
+    //add number to history array
+    //console.log('add', amount);
+    //add number to visible history
+    addHistory(amount);
+
+    //add number to final sum
+
+    //checking for lenght and hiding older values if necessary
+    //if lenght big create link to toggle history
+}
+
+function addHistory(amount) {
+    //save history 
+    //console.log('history', amount);
+}
+
+//delay function
+function delay(seconds) {
+    var oReq = new XMLHttpRequest();
+    //oReq.addEventListener("load", function(){ console.log('ready');});
+    oReq.open("GET", "http://www.httpbin.org/delay/" + seconds, false);
+    oReq.send();
+}
 
 /* commented for reference
 
