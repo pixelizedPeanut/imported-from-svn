@@ -1,3 +1,28 @@
+window.addEventListener('load', function(){
+
+//js stucture:
+    
+    // history and data object
+
+    // takinng original value and creating output div of total sum
+
+    // checking for exceptions and setting rules for them
+
+    // unified summing function for all buttons
+        //add number to history array
+        //add number to visible history
+            //checking for lenght and hiding older values if necessary
+            //if lenght big create link to toggle history
+        //add number to final sum
+        //add server based delay counter
+
+    // creating output div for wait message
+        //set rules for wait message
+    
+});
+
+/* commented for reference
+
 //moved from index from head
 
 // Before you reuse this script you may want to have your head examined 
@@ -79,5 +104,4 @@ setTimeout(function(){
 document.querySelector('body').insertBefore(element, document.querySelector('button'));
 }, 500)
 
-
-
+*/
