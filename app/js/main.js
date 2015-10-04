@@ -3,9 +3,11 @@ var myData = {
     history: []
 };
 
-var seconds = 1;
+var seconds = 0;
 
 window.addEventListener('load', function(){
+    buttons = document.querySelectorAll('.add_amount');
+    
     // takinng original value and creating output div of total sum
     var element = document.createElement('div');
     document.querySelector('.calc').appendChild(element);
@@ -20,41 +22,81 @@ window.addEventListener('load', function(){
     element.textContent = startValue;
     document.querySelector('#visible').innerHTML = startValue;
     // unified summing function for all buttons
-    document.querySelector('.add_amount').onclick = function() {
-        var value = this.dataset.amount;
-        //add server based delay counter - seconds
-        //console.log('start', seconds);
-        delay(seconds++);
-        //console.log('delay', seconds);
-        addAmount(value);
+    for(var i = 0; i < buttons.length; i++) {
+        buttons[i].onclick = function() {
+            
+            //show data
+            document.querySelector('.calc').style.display = 'block';
+            
+             //disable buttons
+            for(var i = 0; i < buttons.length; i++) {
+                buttons[i].disabled = true;
+            }
+            
+            //add adding text
+            if( seconds < 4)
+                document.querySelector('.calc div:last-child').innerHTML = 'adding...';
+            else
+                document.querySelector('.calc div:last-child').innerHTML = 'adding... Get full version to add faster!';
+            
+            //show added amount
+            var value = this.dataset.amount;
+            document.querySelector('#visible').innerHTML += ' + ' + value;
+            
+            //add server based delay counter - seconds
+            delay(seconds++, value, startValue);
+            //console.log('delay', seconds);
+
+        }
     }
     // creating output div for wait message
         //set rules for wait message 
 });
         
-function addAmount(amount) {
-    //add number to history array
-    //console.log('add', amount);
+function addAmount(amount, startValue) {
+    
     //add number to visible history
     addHistory(amount);
 
     //add number to final sum
-
+    var sum = startValue;
+    for(var i = 0; i < myData.history.length; i++ ) {
+        sum += parseInt(myData.history[i]);
+    }
+    console.log('sum: ' + sum);    
+    document.querySelector('.calc div:last-child').innerHTML = sum;    
     //checking for lenght and hiding older values if necessary
     //if lenght big create link to toggle history
 }
 
 function addHistory(amount) {
     //save history 
+    //add number to history array
+    i = myData.history.length
+    myData.history[i] = amount;
+    console.log('history', myData.history);
     //console.log('history', amount);
 }
 
 //delay function
-function delay(seconds) {
+function delay(seconds, value, startValue) {
+
     var oReq = new XMLHttpRequest();
-    //oReq.addEventListener("load", function(){ console.log('ready');});
-    oReq.open("GET", "http://www.httpbin.org/delay/" + seconds, false);
+    
+    oReq.addEventListener("load", function(){ 
+        
+        addAmount(value, startValue);
+        
+        //enable buttons
+        for(var i = 0; i < buttons.length; i++) {
+            buttons[i].disabled = false;
+        }
+        
+    });
+    
+    oReq.open("GET", "http://www.httpbin.org/delay/" + seconds, true);
     oReq.send();
+       
 }
 
 /* commented for reference
