@@ -5,17 +5,12 @@ var myData = {
 
 var seconds = 0;
 
-window.addEventListener('load', function(){
+window.addEventListener('load', function() {
 
     buttons = document.querySelectorAll('.add_amount');
     calc = document.querySelector('.calc');
     visible = document.querySelector('#visible');
-
-    // takinng original html value and creating output div for the sum
-    var element = document.createElement('div');
-    calc.appendChild(element);
-
-    theSum = document.querySelector('.calc div:last-child');
+    sumElem = document.querySelector('#sum');
 
     // checking for exceptions and setting rules for them
     var startValue = parseInt(visible.innerHTML);
@@ -24,7 +19,7 @@ window.addEventListener('load', function(){
         startValue = 0;
         calc.style.display = 'none'; // hide if 0 or no data to display
     }
-    element.textContent = startValue;
+    sumElem.textContent = startValue;
     visible.innerHTML = startValue;
 
     // main adding function
@@ -38,9 +33,9 @@ window.addEventListener('load', function(){
                 buttons[i].disabled = true;
             }
             if( seconds < 4)
-                theSum.innerHTML = 'adding...';
+                sumElem.innerHTML = 'adding...';
             else
-                theSum.innerHTML = 'adding... Get full version to add faster!';
+                sumElem.innerHTML = 'adding... Get full version to add faster!';
 
             // show added amount
             var value = this.dataset.amount;
@@ -77,7 +72,7 @@ function addAmount(amount, startValue) {
     for(var i = 0; i < myData.history.length; i++ ) {
         sum += parseInt(myData.history[i]);
     }
-    theSum.innerHTML = sum;
+    sumElem.innerHTML = sum;
 }
 
 function addHistory(amount) {
