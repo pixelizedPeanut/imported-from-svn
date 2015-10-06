@@ -12,13 +12,8 @@ window.addEventListener('load', function() {
     visible = document.querySelector('#visible');
     sumElem = document.querySelector('#sum');
 
-    // checking for exceptions and setting rules for them
-    var startValue = parseInt(visible.innerHTML);
-    if (!startValue)
-    {
-        startValue = 0;
-        calc.style.display = 'none'; // hide if 0 or no data to display
-    }
+    startValue = 0;
+    calc.style.display = 'none';
     sumElem.textContent = startValue;
     visible.innerHTML = startValue;
 
