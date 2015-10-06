@@ -84,8 +84,3 @@ function addHistory(amount) {
     i = myData.history.length 
     myData.history[i] = amount;
 }
-
-// Before you reuse this script you may want to have your head examined 
-// 
-// Copyright 1999 InsideDHTML.com, LLC.   
-
